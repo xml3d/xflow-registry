@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml3d xmlns="http://www.w3.org/1999/xhtml">
+
+	<dataflow id="gen-sphere" out="position, normal, index">
+		<script name="xflow.sphere" type="text/javascript" src="../operator/geometry/sphere.js"></script>
+		<int name="segments" param="true"/>
+		<float name="phi" param="true"/>
+		<float name="theta" param="true"/>
+		<compute>
+			position, normal, index = xflow.sphere();
+		</compute>
+	</dataflow>
+
+	<dataflow id="gen-box" out="position, normal, index">
+		<script name="xflow.box" type="text/javascript" src="../operator/geometry/box.js"></script>
+		<int name="segments" param="true"/>
+		<float3 name="extend" param="true"/>
+		<compute>
+			position, normal, index = xflow.box();
+		</compute>
+	</dataflow>
+
+	<dataflow id="gen-torus" out="position, normal, index">
+		<script name="xflow.circle" type="text/javascript" src="../operator/geometry/circle.js"></script>
+		<script name="xflow.lathe" type="text/javascript" src="../operator/geometry/lathe.js"></script>
+		<script name="xflow.vec2" type="text/javascript" src="../operator/utils/vec2.js"></script>
+		<int name="radialsegments" param="true"/>
+		<float name="phi" param="true"/>
+		<int name="tubularsegments" param="true"/>
+		<float name="radius" param="true"/>
+		<float name="tube" param="true"/>
+		<float name="theta" param="true"/>
+		<float name="offsety">0</float>
+		<compute>
+			origin = xflow.vec2(radius, offsety);
+			points, normal = xflow.circle(tubularsegments, tube, origin, theta);
+			position, normal, index = xflow.lathe(points, normal, radialsegments, phi);
+		</compute>
+	</dataflow>
+	
+</xml3d>
