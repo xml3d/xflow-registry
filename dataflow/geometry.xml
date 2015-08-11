@@ -57,4 +57,14 @@
 			position, normal, index = xflow.lathe(points, normal, segments, phi);
 		</compute>
 	</dataflow>
+	
+	<dataflow id="gen-grid" out="position, normal, texcoord, index">
+		<script name="xflow.grid" type="text/javascript" src="../operator/geometry/grid.js"></script>
+		<int name="segments" param="true"/>
+		<float2 name="extend" param="true"/>
+		<compute>
+			position, normal, texcoord, index = xflow.grid();
+		</compute>
+	</dataflow>
+
 </xml3d>
