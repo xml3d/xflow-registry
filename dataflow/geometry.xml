@@ -38,4 +38,23 @@
 		</compute>
 	</dataflow>
 	
+	<dataflow id="gen-cone-frustum" out="position, normal, index">
+		<script name="xflow.lathe" type="text/javascript" src="../operator/geometry/lathe.js"></script>
+		<script name="xflow.vec3" type="text/javascript" src="../operator/utils/vec3.js"></script>
+		<script name="xflow.concat" type="text/javascript" src="../operator/utils/concat.js"></script>
+		<int name="segments" param="true"/>
+		<float name="phi" param="true"/>
+		<float name="topradius" param="true"/>
+		<float name="radius" param="true"/>
+		<float name="height" param="true"/>
+		<float name="offsety">0</float>
+		<float name="z">0 0</float>
+		<float3 name="normal">1 0 0 1 0 0</float3>
+		<compute>
+			x = xflow.concat(radius, topradius);
+			y = xflow.concat(offsety, height);
+			points = xflow.vec3(x, y, z);
+			position, normal, index = xflow.lathe(points, normal, segments, phi);
+		</compute>
+	</dataflow>
 </xml3d>
